@@ -17,17 +17,17 @@
 
 ### 分頁替換演算法(Page Replacement Algorithm)
 
-*First in First out Page Replacement(FIFO)*
+**First in First out Page Replacement(FIFO)**
 將存在於實體記憶體頁框中最久的分頁給取代掉，實作起來最為容易。。
 
-*Least Recently Used Page Replacement(LRU)*
+**Least Recently Used Page Replacement(LRU)**
 將存在於實體記憶體頁框中最久沒用到的分頁給取代掉，實作起來比起FIFO稍微困難，需使用計數變數(Counter)去儲存每個在頁框內的分頁使用後閒置的時間，或是如Linked List等額外的資料結構來儲存過去頁框中的分頁使用的順序，但實行起來成效顯著。
 
-*The Clock Page Replacement (Second Chance)*
+**The Clock Page Replacement (Second Chance)**
 基於FIFO，但是會重新給予被使用到的分頁第二次機會，使其可以跳過一次頁框被別的分頁選擇取代的命運。概念上類似LRU，能保留最近使用過的頁框，但比LRU還要容易實作得多。
 
-*Random Page Replacement*
+**Random Page Replacement**
 基於FIFO，只是當沒有可用的頁框時，會隨機選取一個頁框來替換。
 
-*Optimal Page Replacement*
+**Optimal Page Replacement**
 基於FIFO，將於實體記憶體頁框中，不會再次被使用或是最久才會再次被使用的分頁給取代掉，實作起來最非常困難，因為要預知未來可能會存取的分頁，但是這個將會是理想最佳解。
