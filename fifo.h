@@ -19,8 +19,12 @@ class FIFO
         {
             istringstream ss(s);
             string token;
+            ///////////////////////////////////////////////////////////
+            cout<<frameStatus()->empty()<<"\n";
             while (getline(ss, token, ','))
                 _accessSequence.push_back(token);
+            cout<<frameStatus()->empty()<<"\n";
+            ///////////////////////////////////////////////////////////
         }
     }
     string accessSequence() const

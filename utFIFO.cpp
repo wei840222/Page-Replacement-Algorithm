@@ -4,6 +4,7 @@
 TEST(FIFO, ctor)
 {
     FIFO *fifo = new FIFO("A,D,R,S,A,D,G,E,E,A,E,G,S,S", 3);
+    cout<<fifo->frameStatus()->empty();
     EXPECT_EQ("A, D, R, S, A, D, G, E, E, A, E, G, S, S", fifo->accessSequence());
     EXPECT_EQ(3, fifo->frameSize());
     EXPECT_EQ(0, fifo->accessNumber());
