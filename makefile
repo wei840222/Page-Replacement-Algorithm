@@ -1,7 +1,7 @@
-utFIFO: utFIFO.cpp FIFO.h
+utFIFO: utFIFO.cpp fifo.h
 	make clean
 	g++ $^ -lgtest -lpthread
 	./a.out
 
 clean:	
-	rm -f *.o *.gch ut*[!.h] ut*[!.cpp] a.out
+	rm -f *.o *.gch a.out
