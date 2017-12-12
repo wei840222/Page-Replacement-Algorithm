@@ -19,12 +19,9 @@ class FIFO
         {
             istringstream ss(s);
             string token;
-            while(getline(ss, token, ',')){
+            while (getline(ss, token, ','))
                 _accessSequence.push_back(token);
-                cout<<token;
-            }
         }
-        _frameStatus.clear();
     }
     string accessSequence() const
     {
@@ -36,7 +33,7 @@ class FIFO
     }
     int frameSize() const { return _frameSize; }
     int accessNumber() const { return _accessNumber; }
-    vector<string> *frameStatus() const { _frameStatus; }
+    vector<string> *frameStatus() const { &_frameStatus; }
     bool isPageFault() const { return find(_frameStatus.begin(), _frameStatus.end(), _accessSequence[_accessNumber]) == _frameStatus.end(); }
     string victimPage()
     {
