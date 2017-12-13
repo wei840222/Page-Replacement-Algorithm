@@ -2,58 +2,36 @@
 #define FIFO_H
 
 #include <iostream>
-#include <sstream>
 #include <string>
 #include <algorithm>
-#include <vector>
 using namespace std;
 
 class FIFO
 {
   public:
-    FIFO(string s = "", int i = 1) : _frameSize(i), _accessNumber(0), _frameStatus({}), _fifoIndex(0)
-    {
-        if (s == "")
-            _accessSequence = {};
-        else
-        {
-            istringstream ss(s);
-            string token;
-            ///////////////////////////////////////////////////////////
-            cout<<frameStatus()->empty()<<"\n";
-            while (getline(ss, token, ','))
-                _accessSequence.push_back(token);
-            cout<<frameStatus()->empty()<<"\n";
-            ///////////////////////////////////////////////////////////
-        }
-    }
-    string accessSequence() const
-    {
-        stringstream ss;
-        ss << _accessSequence[0];
-        for (int i = 1; i < _accessSequence.size(); i++)
-            ss << ", " << _accessSequence[i];
-        return ss.str();
-    }
-    int frameSize() const { return _frameSize; }
+    FIFO(string s = "", int j = 1) : _accessSequence(s), _accessNumber(0), _frameStatus(""), _frameSize(j), _fifoIndex(0) {}
+    string accessSequence() const { return _accessSequence; }
     int accessNumber() const { return _accessNumber; }
-    vector<string> *frameStatus() const { &_frameStatus; }
-    bool isPageFault() const { return find(_frameStatus.begin(), _frameStatus.end(), _accessSequence[_accessNumber]) == _frameStatus.end(); }
-    string victimPage()
+    string frameStatus() const { return _frameStatus; }
+    int frameSize() const { return _frameSize; }
+
+    bool isPageFault()
     {
-        stringstream ss;
-        if (_frameStatus.size() < _frameSize)
-            ss << _frameStatus.size() << ", NULL -> " << _accessSequence[_accessNumber];
-        else if (isPageFault())
-            ss << _fifoIndex << ", " << _frameStatus[_fifoIndex] << " -> " << _accessSequence[_accessNumber];
-        return ss.str();
+        for (int i = 0; i < _frameStatus.length(); i+=2)
+            if (_frameSize[i] == _accessSequence[_accessNumber])
+                return true;
+        return false;
+    }
+    string victimPage() const
+    {
+        return "";
     }
 
   private:
-    vector<string> _accessSequence;
-    const int _frameSize;
+    string _accessSequence;
     int _accessNumber;
-    vector<string> _frameStatus;
+    string _frameStatus;
+    const int _frameSize;
     int _fifoIndex;
 };
 
