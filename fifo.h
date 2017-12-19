@@ -1,20 +1,12 @@
 #ifndef FIFO_H
 #define FIFO_H
 
-#include <string>
-#include <algorithm>
-using namespace std;
+#include "repALG.h"
 
-class FIFO
+class FIFO : public RepALG
 {
   public:
-    FIFO(string s = "", int j = 1) : _accessSequence(s), _accessNumber(0), _frameStatus(""), _frameSize(j), _fifoIndex(0) {}
-    string accessSequence() const { return _accessSequence; }
-    int accessNumber() const { return _accessNumber; }
-    string frameStatus() const { return _frameStatus; }
-    int frameSize() const { return _frameSize; }
-    bool isFinish() const { return !(_accessNumber<_accessSequence.size()); }
-    bool isPageFault() const { return (_frameStatus.find(_accessSequence[_accessNumber]) == string::npos) ? true : false;}
+    FIFO(string s = "", int i = 1) : RepALG(s,i), _fifoIndex(0) {}
     string victimPage() const
     {
       string ret = "";
@@ -47,10 +39,6 @@ class FIFO
     }
 
   private:
-    string _accessSequence;
-    int _accessNumber;
-    string _frameStatus;
-    const int _frameSize;
     int _fifoIndex;
 };
 
