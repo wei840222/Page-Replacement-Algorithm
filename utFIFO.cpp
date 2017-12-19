@@ -3,8 +3,8 @@
 
 TEST(FIFO, ctor)
 {
-    FIFO *fifo = new FIFO("A,D,R,S,A,D,G,E,E,A,E,G,S,S", 3);
-    EXPECT_EQ("A,D,R,S,A,D,G,E,E,A,E,G,S,S", fifo->accessSequence());
+    FIFO *fifo = new FIFO("ADRSADGEEAEGSS", 3);
+    EXPECT_EQ("ADRSADGEEAEGSS", fifo->accessSequence());
     EXPECT_EQ(3, fifo->frameSize());
     EXPECT_EQ(0, fifo->accessNumber());
     EXPECT_EQ("", fifo->frameStatus());

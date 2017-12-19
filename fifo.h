@@ -17,9 +17,9 @@ class FIFO
 
     bool isPageFault()
     {
-        for (int i = 0; i < _frameStatus.length(); i+=2)
-            if (_frameSize[i] == _accessSequence[_accessNumber])
-                return true;
+        // for (int i = 0; i < _frameStatus.length(); i+=2)
+        //     if (_frameSize[i] == _accessSequence[_accessNumber])
+        //         return true;
         return false;
     }
     string victimPage() const
