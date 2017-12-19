@@ -14,17 +14,20 @@ class FIFO
     int accessNumber() const { return _accessNumber; }
     string frameStatus() const { return _frameStatus; }
     int frameSize() const { return _frameSize; }
-
-    bool isPageFault()
-    {
-        // for (int i = 0; i < _frameStatus.length(); i+=2)
-        //     if (_frameSize[i] == _accessSequence[_accessNumber])
-        //         return true;
-        return false;
-    }
+    bool isPageFault() const { return (_frameStatus.find(_accessSequence[_accessNumber]) == string::npos) ? true : false;}
     string victimPage() const
     {
-        return "";
+      string ret = "";
+        if(isPageFault())
+        {
+          ret += to_string(_fifoIndex) + ", ";
+          if(_frameStatus.empty() || _frameStatus.size() < _fifoIndex)
+            ret += "NULL";
+          else
+            ret += _frameStatus[_fifoIndex];
+          ret += " -> " + _accessSequence[_accessNumber];
+        }
+        return ret;
     }
 
   private:

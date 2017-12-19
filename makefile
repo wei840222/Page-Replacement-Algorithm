@@ -1,6 +1,6 @@
 utFIFO: utFIFO.cpp fifo.h
 	make clean
-	g++ $^ -lgtest -lpthread
+	g++ $^ -std=gnu++0x -lgtest -lpthread
 	./a.out
 
 clean:	
