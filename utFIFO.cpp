@@ -25,6 +25,29 @@ TEST(FIFO, 2nd_element)
     EXPECT_EQ("1, NULL -> D", fifo->victimPage());
 }
 
+TEST(FIFO, 3456th_element)
+{
+    FIFO *fifo = new FIFO("ADRSADGEEAEGSS", 3);
+    fifo->next();
+    fifo->next();
+    EXPECT_EQ(2, fifo->accessNumber());
+    EXPECT_EQ("AD", fifo->frameStatus());
+    EXPECT_TRUE(fifo->isPageFault());
+    EXPECT_EQ("2, NULL -> R", fifo->victimPage());
+    fifo->next();
+    EXPECT_EQ(3, fifo->accessNumber());
+    EXPECT_EQ("ADR", fifo->frameStatus());
+    EXPECT_TRUE(fifo->isPageFault());
+    EXPECT_EQ("0, A -> S", fifo->victimPage());
+    fifo->next();
+    EXPECT_EQ(4, fifo->accessNumber());
+    EXPECT_EQ("SDR", fifo->frameStatus());
+    EXPECT_TRUE(fifo->isPageFault());
+    EXPECT_EQ("1, D -> A", fifo->victimPage());
+    fifo->next();
+    EXPECT_EQ("SAR", fifo->frameStatus());
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);

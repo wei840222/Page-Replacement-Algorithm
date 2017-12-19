@@ -31,15 +31,19 @@ class FIFO
         return ret;
     }
     void next(){
-      if(isPageFault()){
-        if(_frameStatus.size() < _frameSize)
-          _frameStatus += _accessSequence[_accessNumber];
-        else
-          _frameStatus[_fifoIndex] = _accessSequence[_accessNumber];
-        _fifoIndex++;
-        _fifoIndex%=_frameSize;
+      if(_accessNumber<_accessSequence.size())
+      {
+        if(isPageFault())
+        {
+          if(_frameStatus.size() < _frameSize)
+            _frameStatus += _accessSequence[_accessNumber];
+          else
+            _frameStatus[_fifoIndex] = _accessSequence[_accessNumber];
+          _fifoIndex++;
+          _fifoIndex%=_frameSize;
+        }
+        _accessNumber++;
       }
-      _accessNumber++;
     }
 
   private:
