@@ -21,13 +21,25 @@ class FIFO
         if(isPageFault())
         {
           ret += to_string(_fifoIndex) + ", ";
-          if(_frameStatus.empty() || _frameStatus.size() < _fifoIndex)
+          if(_frameStatus.empty() || _frameStatus.size() < _fifoIndex || _frameStatus[_fifoIndex] == '\0')
             ret += "NULL";
           else
             ret += _frameStatus[_fifoIndex];
-          ret += " -> " + _accessSequence[_accessNumber];
+          ret += " -> ";
+          ret += _accessSequence[_accessNumber];
         }
         return ret;
+    }
+    void next(){
+      if(isPageFault()){
+        if(_frameStatus.size() < _frameSize)
+          _frameStatus += _accessSequence[_accessNumber];
+        else
+          _frameStatus[_fifoIndex] = _accessSequence[_accessNumber];
+        _fifoIndex++;
+        _fifoIndex%=_frameSize;
+      }
+      _accessNumber++;
     }
 
   private:
