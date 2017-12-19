@@ -1,7 +1,6 @@
 #ifndef FIFO_H
 #define FIFO_H
 
-#include <iostream>
 #include <string>
 #include <algorithm>
 using namespace std;
@@ -14,6 +13,7 @@ class FIFO
     int accessNumber() const { return _accessNumber; }
     string frameStatus() const { return _frameStatus; }
     int frameSize() const { return _frameSize; }
+    bool isFinish() const { return !(_accessNumber<_accessSequence.size()); }
     bool isPageFault() const { return (_frameStatus.find(_accessSequence[_accessNumber]) == string::npos) ? true : false;}
     string victimPage() const
     {
@@ -31,7 +31,7 @@ class FIFO
         return ret;
     }
     void next(){
-      if(_accessNumber<_accessSequence.size())
+      if(!isFinish())
       {
         if(isPageFault())
         {
