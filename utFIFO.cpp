@@ -1,8 +1,9 @@
 #include <gtest/gtest.h>
 #include "fifo.h"
 
-TEST(FIFO, ctor) {
-  FIFO* fifo = new FIFO("ADRSADGEEAEGSS", 3);
+TEST(FIFO, ctor)
+{
+  FIFO *fifo = new FIFO("ADRSADGEEAEGSS", 3);
   EXPECT_EQ("ADRSADGEEAEGSS", fifo->accessSequence());
   EXPECT_EQ(3, fifo->frameSize());
   EXPECT_EQ(0, fifo->accessNumber());
@@ -11,8 +12,9 @@ TEST(FIFO, ctor) {
   EXPECT_EQ("0, NULL -> A", fifo->victimPage());
 }
 
-TEST(FIFO, 2nd_element) {
-  FIFO* fifo = new FIFO("ADRSADGEEAEGSS", 3);
+TEST(FIFO, 2nd_element)
+{
+  FIFO *fifo = new FIFO("ADRSADGEEAEGSS", 3);
   EXPECT_EQ("ADRSADGEEAEGSS", fifo->accessSequence());
   EXPECT_EQ(3, fifo->frameSize());
   EXPECT_EQ(0, fifo->accessNumber());
@@ -23,8 +25,9 @@ TEST(FIFO, 2nd_element) {
   EXPECT_EQ("1, NULL -> D", fifo->victimPage());
 }
 
-TEST(FIFO, 3456th_element) {
-  FIFO* fifo = new FIFO("ADRSADGEEAEGSS", 3);
+TEST(FIFO, 3456th_element)
+{
+  FIFO *fifo = new FIFO("ADRSADGEEAEGSS", 3);
   fifo->next();
   fifo->next();
   EXPECT_EQ(2, fifo->accessNumber());
@@ -45,7 +48,8 @@ TEST(FIFO, 3456th_element) {
   EXPECT_EQ("SAR", fifo->frameStatus());
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

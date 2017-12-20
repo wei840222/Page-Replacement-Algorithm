@@ -3,15 +3,17 @@
 
 #include "repALG.h"
 
-class FIFO : public RepALG {
- public:
+class FIFO : public RepALG
+{
+public:
   FIFO(string s = "", int i = 1) : RepALG(s, i), _fifoIndex(0) {}
-  string victimPage() const {
+  string victimPage() const
+  {
     string ret = "";
-    if (isPageFault()) {
+    if (isPageFault())
+    {
       ret += to_string(_fifoIndex) + ", ";
-      if (_frameStatus.empty() || _frameStatus.size() < _fifoIndex ||
-          _frameStatus[_fifoIndex] == '\0')
+      if (_frameStatus.empty() || _frameStatus.size() < _fifoIndex || _frameStatus[_fifoIndex] == '\0')
         ret += "NULL";
       else
         ret += _frameStatus[_fifoIndex];
@@ -20,9 +22,12 @@ class FIFO : public RepALG {
     }
     return ret;
   }
-  void next() {
-    if (!isFinish()) {
-      if (isPageFault()) {
+  void next()
+  {
+    if (!isFinish())
+    {
+      if (isPageFault())
+      {
         if (_frameStatus.size() < _frameSize)
           _frameStatus += _accessSequence[_accessNumber];
         else
@@ -34,7 +39,7 @@ class FIFO : public RepALG {
     }
   }
 
- private:
+private:
   int _fifoIndex;
 };
 
