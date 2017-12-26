@@ -22,7 +22,22 @@ class LRU : public RepALG
         }
         return ret;
     }
-    void next() {}
+    void next()
+    {
+        if (!isFinish())
+        {
+            if (isPageFault())
+            {
+                if (_frameStatus.size() < _frameSize)
+                    _frameStatus += _accessSequence[_accessNumber];
+                else
+                    _frameStatus[_lruIndex] = _accessSequence[_accessNumber];
+                _lruIndex++;
+                _lruIndex %= _frameSize;
+            }
+            _accessNumber++;
+        }
+    }
 
   private:
     int _lruIndex;
