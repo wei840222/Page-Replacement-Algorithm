@@ -2,6 +2,8 @@
 #define LRU_H
 
 #include "repALG.h"
+#include <iostream>
+using namespace std;
 
 class LRU : public RepALG
 {
@@ -24,19 +26,28 @@ class LRU : public RepALG
     }
     void next()
     {
-        if (!isFinish())
+        if (!isFinish() && isPageFault())
         {
-            if (isPageFault())
+            if (_frameStatus.size() < _frameSize)
             {
-                if (_frameStatus.size() < _frameSize)
-                    _frameStatus += _accessSequence[_accessNumber];
-                else
-                    _frameStatus[_lruIndex] = _accessSequence[_accessNumber];
+                _frameStatus += _accessSequence[_accessNumber];
                 _lruIndex++;
                 _lruIndex %= _frameSize;
             }
-            _accessNumber++;
+            else
+            {
+                _frameStatus[_lruIndex] = _accessSequence[_accessNumber];
+                _lruIndex = 0;
+                int minIndex = _accessSequence.rfind(_frameStatus[0], _accessNumber);
+                for (int i = 1; i < _frameSize; i++)
+                    if (_accessSequence.rfind(_frameStatus[i], _accessNumber) < minIndex)
+                    {
+                        minIndex = _accessSequence.rfind(_frameStatus[i], _accessNumber);
+                        _lruIndex = i;
+                    }
+            }
         }
+        _accessNumber++;
     }
 
   private:

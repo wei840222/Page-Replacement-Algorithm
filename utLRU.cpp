@@ -30,6 +30,33 @@ TEST(LRU, 2nd_3rd_element)
     EXPECT_EQ("2, NULL -> R", lru->victimPage());
 }
 
+TEST(LRU, 4nd_5th_6th_element)
+{
+    LRU *lru = new LRU("ADRSADGEEAEGSS", 3);
+    lru->next();
+    lru->next();
+    lru->next();
+    EXPECT_EQ(3, lru->accessNumber());
+    EXPECT_EQ("ADR", lru->frameStatus());
+    EXPECT_TRUE(lru->isPageFault());
+    EXPECT_EQ("0, A -> S", lru->victimPage());
+    lru->next();
+    EXPECT_EQ(4, lru->accessNumber());
+    EXPECT_EQ("SDR", lru->frameStatus());
+    EXPECT_TRUE(lru->isPageFault());
+    EXPECT_EQ("1, D -> A", lru->victimPage());
+    lru->next();
+    EXPECT_EQ(5, lru->accessNumber());
+    EXPECT_EQ("SAR", lru->frameStatus());
+    EXPECT_TRUE(lru->isPageFault());
+    EXPECT_EQ("2, R -> D", lru->victimPage());
+    lru->next();
+    EXPECT_EQ(6, lru->accessNumber());
+    EXPECT_EQ("SAD", lru->frameStatus());
+    EXPECT_TRUE(lru->isPageFault());
+    EXPECT_EQ("0, S -> G", lru->victimPage());
+}
+
 int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
