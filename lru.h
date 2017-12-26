@@ -26,32 +26,41 @@ class LRU : public RepALG
     }
     void next()
     {
-        if (!isFinish() && isPageFault())
+        if (!isFinish())
         {
-            if (_frameStatus.size() < _frameSize)
+            if (isPageFault())
             {
-                _frameStatus += _accessSequence[_accessNumber];
-                _lruIndex++;
-                _lruIndex %= _frameSize;
+                if (_frameStatus.size() < _frameSize)
+                {
+                    _frameStatus += _accessSequence[_accessNumber];
+                    _lruIndex++;
+                    _lruIndex %= _frameSize;
+                }
+                else
+                {
+                    findLRU();
+                    _frameStatus[_lruIndex] = _accessSequence[_accessNumber];
+                }
             }
-            else
-            {
-                _frameStatus[_lruIndex] = _accessSequence[_accessNumber];
-                _lruIndex = 0;
-                int minIndex = _accessSequence.rfind(_frameStatus[0], _accessNumber);
-                for (int i = 1; i < _frameSize; i++)
-                    if (_accessSequence.rfind(_frameStatus[i], _accessNumber) < minIndex)
-                    {
-                        minIndex = _accessSequence.rfind(_frameStatus[i], _accessNumber);
-                        _lruIndex = i;
-                    }
-            }
+            if (_frameStatus.size() >= _frameSize)
+                findLRU();
         }
         _accessNumber++;
     }
 
   private:
     int _lruIndex;
+    void findLRU()
+    {
+        _lruIndex = 0;
+        int minIndex = _accessSequence.rfind(_frameStatus[0], _accessNumber);
+        for (int i = 1; i < _frameSize; i++)
+            if (_accessSequence.rfind(_frameStatus[i], _accessNumber) < minIndex)
+            {
+                minIndex = _accessSequence.rfind(_frameStatus[i], _accessNumber);
+                _lruIndex = i;
+            }
+    }
 };
 
 #endif
