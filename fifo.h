@@ -13,7 +13,7 @@ public:
     if (isPageFault())
     {
       ret += to_string(_fifoIndex) + ", ";
-      if (_frameStatus.empty() || _frameStatus.size() < _fifoIndex || _frameStatus[_fifoIndex] == '\0')
+      if (_frameStatus.size() < _frameSize)
         ret += "NULL";
       else
         ret += _frameStatus[_fifoIndex];
