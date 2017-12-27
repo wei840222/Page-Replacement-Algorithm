@@ -1,18 +1,24 @@
 #include <iostream>
-#include "fifo.h"
+#include "repALG.h"
+#include "lru.h"
 using namespace std;
 
 int main(int argc, char **argv)
 {
-  FIFO *fifo = new FIFO("ADRSADGEEAEGSS", 3);
-  while (!(fifo->isFinish()))
+  int pageFaultCount = 0; //01234567890123
+  RepALG *repALG = new LRU("ADRSADGEEAEGSS", 3);
+  while (!(repALG->isFinish()))
   {
-    cout << "Access number: " << fifo->accessNumber()
-         << "\nFrame status: " << fifo->frameStatus();
-    if (fifo->isPageFault())
-      cout << "\nPageFault: " << fifo->victimPage();
+    cout << "Access number: " << repALG->accessNumber()
+         << "\nFrame status: " << repALG->frameStatus();
+    if (repALG->isPageFault())
+    {
+      pageFaultCount++;
+      cout << "\nPageFault: " << repALG->victimPage();
+    }
     cout << "\n\n";
-    fifo->next();
+    repALG->next();
   }
+  cout << "\nPage Fault:" << pageFaultCount << "\n";
   return 0;
 }
