@@ -21,6 +21,12 @@ utRandom: utRandom.cpp random.h
 	g++ $^ -std=gnu++0x -lgtest -lpthread
 	./a.out
 	make clean
-	
+
+utOptimal: utOptimal.cpp optimal.h
+	make clean
+	g++ $^ -std=gnu++0x -lgtest -lpthread
+	./a.out
+	make clean
+
 clean:	
 	rm -f *.o *.gch a.out
