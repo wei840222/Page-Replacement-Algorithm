@@ -28,6 +28,8 @@ public:
           _frameStatus[_repIndex] = _accessSequence[_accessNumber];
         }
 	    }
+      if (_frameStatus.size() >= _frameSize)
+                findVictim();
 	  }
     _accessNumber++;
   }
