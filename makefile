@@ -16,5 +16,11 @@ utLRU: utLRU.cpp lru.h
 	./a.out
 	make clean
 
+utRandom: utRandom.cpp random.h
+	make clean
+	g++ $^ -std=gnu++0x -lgtest -lpthread
+	./a.out
+	make clean
+	
 clean:	
 	rm -f *.o *.gch a.out

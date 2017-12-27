@@ -6,33 +6,31 @@
 class Optimal : public RepALG
 {
 public:
-  Optimal(string s = ""){}
-  string victimPage() const
-  {
-    string ret = "";
-    if (isPageFault()){
-      ret += to_string(_optimalIndex) + ", ";
-      if (_frameStatus.empty() || _frameStatus.size() < _optimalIndex || _frameStatus[_optimalIndex] == '\0')
-        ret += "NULL";
-      else{
-        //
-      }
-      ret += " -> ";
-      ret += _accessSequence[_accessNumber];
-    }
-    return ret;
-  }
+  Optimal(string s = "", int i = 1):RepALG(s, i){}
+  
   void next()
   {
     if(!isFinish()){
 	    if(isPageFault()){
+        if (_frameStatus.size() < _frameSize)
+          _frameStatus += _accessSequence[_accessNumber];
+        else{
+          findVictim();
 
+        }
 	    }
 	  }    
   }
 
 private:
-  int _optimalIndex;
+  void findVictim(){
+    _repIndex = 0;
+    for(int i = 0; i < frameSize(); i++){
+      for(int i = _accessNumber; i < _accessSequence.size(); ++i){
+        
+      }
+    }
+  }
   
 };
 #endif

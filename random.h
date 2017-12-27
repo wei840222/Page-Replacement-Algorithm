@@ -8,34 +8,30 @@
 class Random : public RepALG
 {
 public:
-  Random(string s = ""){
+  Random(string s = "", int i = 1) : RepALG(s, i) {
     srand( time(NULL) );
-  }
-  string victimPage() const{
-    string ret = "";
-    if (isPageFault()){
-      ret += to_string(_fifoIndex) + ", ";
-      if (_frameStatus.empty() || _frameStatus.size() < _fifoIndex || _frameStatus[_fifoIndex] == '\0')
-        ret += "NULL";
-      else{
-        _randomIndex = rand();
-      }
-      ret += " -> ";
-      ret += _accessSequence[_accessNumber];
-    }
-    return ret;
   }
   void next()
   {
 	  if(!isFinish()){
 	    if(isPageFault()){
-
+        if(_frameStatus.size() < _frameSize){
+          _frameStatus += _accessSequence[_accessNumber];
+          _repIndex++;
+          _repIndex%=frameSize();
+        }
+        else{
+          findRandom();
+          _frameStatus[_repIndex] = _accessSequence[_accessNumber];
+        }
 	    }
-	  }    
+	  }
+    _accessNumber++;  
   }
 
 private:
-  int _fault
-  int _randomIndex;
+  void findRandom(){
+    _repIndex = rand()%frameSize();
+  }
 };
 #endif
