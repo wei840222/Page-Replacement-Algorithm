@@ -1,12 +1,12 @@
 #include <iostream>
 #include "repALG.h"
-#include "lru.h"
+#include "secondChance.h"
 using namespace std;
 
 int main(int argc, char **argv)
 {
   int pageFaultCount = 0; //01234567890123
-  RepALG *repALG = new LRU("ADRSADGEEAEGSS", 3);
+  RepALG *repALG = new SecondChance("EFABFCFDBCFCBAB", 3);
   while (!(repALG->isFinish()))
   {
     cout << "Access number: " << repALG->accessNumber()
