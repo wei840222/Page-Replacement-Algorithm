@@ -73,7 +73,7 @@ public:
         _repIndex %= _frameSize;
       }
       else
-        _chanceTable[_repIndex] = '1';
+        _chanceTable[_frameStatus.find(_accessSequence[_accessNumber])] = '1';
       _accessNumber++;
     }
   }
@@ -83,6 +83,7 @@ private:
 
   FRIEND_TEST(SecondChance, 1st_2st_3st);
   FRIEND_TEST(SecondChance, 4st_5st_6st);
+  FRIEND_TEST(SecondChance, 7st_8st_9st);
 };
 
 #endif
