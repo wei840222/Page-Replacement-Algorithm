@@ -20,22 +20,15 @@ public:
       if (isPageFault())
       {
         if (_frameStatus.size() < _frameSize)
-          _frameStatus += _accessSequence[_accessNumber];
-        else
         {
-          while (chanceTable[_repIndex] != '0')
-          {
-            chanceTable[_repIndex] = '0';
-            _repIndex++;
-            _repIndex %= _frameSize;
-          }
-          _frameStatus[_repIndex] = _accessSequence[_accessNumber];
-          _repIndex++;
-          _repIndex %= _frameSize;
+          chanceTable[_repIndex] = '1';
+          _frameStatus += _accessSequence[_accessNumber];
         }
+        else
+          _frameStatus[_repIndex] = _accessSequence[_accessNumber];
+        _repIndex++;
+        _repIndex %= _frameSize;
       }
-      else
-        chanceTable[_frameStatus.find(_accessSequence[_accessNumber])] = '1';
       _accessNumber++;
     }
   }
@@ -43,7 +36,7 @@ public:
 private:
   string chanceTable;
 
-  FRIEND_TEST(SecondChance, chanceTable);
+  FRIEND_TEST(SecondChance, 1st_2st_3st);
 };
 
 #endif
