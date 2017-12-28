@@ -1,10 +1,10 @@
 main: main.cpp repALG.h fifo.h lru.h
 	make clean
-	g++ $^ -std=gnu++0x -lgtest -lpthread
-	./a.out
+	g++ $^ -o main -std=gnu++0x -lgtest -lpthread
+	./main
 	make clean
 
-utAll: utFIFO utLRU utRandom utOptimal utSecondChance
+utRunAll: utFIFO utLRU utRandom utOptimal utSecondChance
 	./utFIFO && ./utLRU && ./utRandom && ./utOptimal && ./utSecondChance
 	make clean
 
@@ -24,4 +24,4 @@ utSecondChance: utSecondChance.cpp secondChance.h
 	g++ $^ -o $@ -std=gnu++0x -lgtest -lpthread
 
 clean:	
-	rm -f *.o *.gch ut*[!.cpp]
+	rm -f main *.o *.gch ut*[!.cpp]

@@ -1,8 +1,6 @@
 #ifndef SECONDCHANCE_H
 #define SECONDCHANCE_H
 
-#include <iostream>
-using namespace std;
 #include <gtest/gtest.h>
 #include "repALG.h"
 
