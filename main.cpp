@@ -19,6 +19,8 @@ int main(int argc, char **argv)
     cout << "\n\n";
     repALG->next();
   }
-  cout << "\nPage Fault:" << pageFaultCount << "\n";
+  cout << "Access number: " << repALG->accessNumber()
+         << "\nFrame status: " << repALG->frameStatus();
+  cout << "\n\n\nPage Fault:" << pageFaultCount << "\n";
   return 0;
 }
