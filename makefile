@@ -4,35 +4,24 @@ main: main.cpp repALG.h fifo.h lru.h
 	./a.out
 	make clean
 
+utAll: utFIFO utLRU utRandom utOptimal utSecondChance
+	./utFIFO && ./utLRU && ./utRandom && ./utOptimal && ./utSecondChance
+	make clean
+
 utFIFO: utFIFO.cpp fifo.h
-	make clean
-	g++ $^ -std=gnu++0x -lgtest -lpthread
-	./a.out
-	make clean
+	g++ $^ -o $@ -std=gnu++0x -lgtest -lpthread
 
 utLRU: utLRU.cpp lru.h
-	make clean
-	g++ $^ -std=gnu++0x -lgtest -lpthread
-	./a.out
-	make clean
+	g++ $^ -o $@ -std=gnu++0x -lgtest -lpthread
 
 utRandom: utRandom.cpp random.h
-	make clean
-	g++ $^ -std=gnu++0x -lgtest -lpthread
-	./a.out
-	make clean
+	g++ $^ -o $@ -std=gnu++0x -lgtest -lpthread
 
 utOptimal: utOptimal.cpp optimal.h
-	make clean
-	g++ $^ -std=gnu++0x -lgtest -lpthread
-	./a.out
-	make clean
-	
+	g++ $^ -o $@ -std=gnu++0x -lgtest -lpthread
+
 utSecondChance: utSecondChance.cpp secondChance.h
-	make clean
-	g++ $^ -std=gnu++0x -lgtest -lpthread
-	./a.out
-	make clean
+	g++ $^ -o $@ -std=gnu++0x -lgtest -lpthread
 
 clean:	
-	rm -f *.o *.gch a.out
+	rm -f *.o *.gch ut*[!.cpp]
