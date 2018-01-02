@@ -12,10 +12,23 @@ int main(int argc, char **argv)
 {
   int ALG, FRAMESIZE;
   string ACCESSSEQUENCE;
-  cout << "Please choose Page Replacement Algorithm:\n1. FIFO\n2. LRU\n3. Second Chance\n4. Random\n5. Optimal\n";
-  cin >> ALG;
-  cout << "Please enter the frame size:";
-  cin >> FRAMESIZE;
+  cout << "*************************************************************************************************\n"
+       << "**********************                                                     **********************\n"
+       << "**********************   Page Fault Replacement Algorithm Implementation   **********************\n"
+       << "**********************                                                     **********************\n"
+       << "*************************************************************************************************\n";
+  do
+  {
+    cout << "Please choose Page Replacement Algorithm\n";
+    cout << "1.FIFO 2.LRU 3.Second Chance 4.Random 5.Optimal\n";
+    cout << "Your choice:";
+    cin >> ALG;
+  } while (ALG < 1 || ALG > 5);
+  do
+  {
+    cout << "Please enter the frame size:";
+    cin >> FRAMESIZE;
+  } while (FRAMESIZE < 1);
   cout << "Please enter the Access Sequence:";
   cin >> ACCESSSEQUENCE;
 
@@ -40,20 +53,11 @@ int main(int argc, char **argv)
   }
 
   int pageFaultCount = 0;
+  cout << "\nNo\tFrame status\tVictimPage\n";
   while (!(repALG->isFinish()))
   {
-    cout << "Access number: " << repALG->accessNumber()
-         << "\nFrame status: " << repALG->frameStatus();
-    if (repALG->isPageFault())
-    {
-      pageFaultCount++;
-      cout << "\nPageFault: " << repALG->victimPage();
-    }
-    cout << "\n\n";
+    cout << repALG->accessNumber() << "\t" << repALG->frameStatus() << "\t\t" << repALG->victimPage() << "\n";
     repALG->next();
   }
-  cout << "Access number: " << repALG->accessNumber()
-       << "\nFrame status: " << repALG->frameStatus();
-  cout << "\n\nPage Fault:" << pageFaultCount << "\n\n";
   return 0;
 }
