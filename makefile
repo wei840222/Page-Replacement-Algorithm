@@ -1,8 +1,8 @@
 main: main.cpp repALG.h fifo.h lru.h
 	g++ $^ -o main -std=gnu++0x -lgtest -lpthread
 
-utRunAll: utFIFO utLRU utRandom utOptimal utSecondChance
-	./utFIFO && ./utLRU && ./utRandom && ./utOptimal && ./utSecondChance
+utAll: utFIFO utLRU utRandom utOptimal utSecondChance
+	./utFIFO && ./utLRU && ./utSecondChance && ./utOptimal
 	make clean
 
 utFIFO: utFIFO.cpp fifo.h
